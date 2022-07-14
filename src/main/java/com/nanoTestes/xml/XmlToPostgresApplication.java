@@ -13,7 +13,7 @@ import com.nanoTestes.xml.services.DocService;
 @SpringBootApplication
 public class XmlToPostgresApplication implements CommandLineRunner{
 
-	// instancia na varDir o path
+	
 	
 	@Autowired
 	private DocService docService;
@@ -24,8 +24,10 @@ public class XmlToPostgresApplication implements CommandLineRunner{
 		
 	}
 
-	
-	// Inserir implements CommandLineRunner na Classe principal
+	/*
+	   The Apllication start with call for the class DocService, instanciada aqui em docService
+	   in the method run here 
+	*/
 	@Override
 	public void run(String... args) throws Exception {
 		
