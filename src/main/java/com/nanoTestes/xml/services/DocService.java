@@ -7,13 +7,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.nanoTestes.xml.services.xmlToObject.XmlToObject;
 
 @Service
 public class DocService {
 	
 	private final String directoryPath = "/home/fernando/Documentos/novo/folderFiles/nfe/";
-
+	
+	@Autowired
+	private XmlToObject xmlToObject;
+	
+	
 	// este metodo le os arquivos xml e mostra na tela
 	public void read() {
 		
@@ -28,23 +36,31 @@ public class DocService {
 	
 	}
 	
+	// processa o conteudo do arquivo
 	public void processa(DirectoryStream<Path> arquivos) {
 		
 		for (Path arquivo : arquivos) {
 			
 			try {
 				
+				// convert o arquivo em tipo Byte
 				byte[] contentFile = Files.readAllBytes(arquivo);
 				
-				String contentFileString = new String(contentFile);
+				//String contentFileString = new String(contentFile);
+				//System.out.println(contentFileString);
 				
-				System.out.println(contentFileString);
+				xmlToObject.nfeMapping(contentFile);
+				
 				
 			} catch (Exception e) {
-				// TODO: handle exception
+				
+				System.out.println("Erro o ler o arquivo: " +arquivo.getFileName());
 			}
 			//System.out.println(arquivo.getFileName().toString());
 		}
+		
+		
+	
 		
 	}
 	
