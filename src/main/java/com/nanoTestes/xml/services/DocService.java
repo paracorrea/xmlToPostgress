@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.nanoTestes.xml.services.xmlToObject.XmlToObject;
 
 @Service
@@ -73,8 +74,6 @@ public class DocService {
 			
 		}
 	} // close method processa()
-	
-
 	
 
 }

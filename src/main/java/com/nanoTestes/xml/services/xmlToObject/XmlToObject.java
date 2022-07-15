@@ -35,12 +35,7 @@ public class XmlToObject {
 	String _cNF;
 	String _dhEmi;
 	
-	//DocModel docModel = new DocModel();
-	/*
-	 * this method return a String or resolve the programming 
-	 * reciving a type byte array and transform in a XML java document 
-	 * follow get your content for future 
-	 */
+
 	public String nfeMapping(byte[] file) {
 		
 		try {
@@ -53,19 +48,25 @@ public class XmlToObject {
 			_cNF = xPath.compile("/nfeProc/NFe/infNFe/ide/cNF").evaluate(doc);
 			_dhEmi = xPath.compile("/nfeProc/NFe/infNFe/ide/dhEmi").evaluate(doc);
 			
-			 
+			
+				
+				
 			  DocModel docModel = new DocModel();
 			  docModel.setKeyNfe(_keyNfe);
 			  docModel.setnNF(_nNF);
 			  docModel.setcNF(_cNF);
 			  docModel.setDhEmi(_dhEmi);
-			  
-			
-			  nfeRepositoty.save(docModel);
-		
 			 
-			
-			System.out.println("Chave: "+docModel.getKeyNfe()+ " Número d Nota: "+ docModel.getnNF());	
+			  
+			 
+				System.out.println("Nota fiscal n. "+_keyNfe + " já existente...");
+			 
+			if (existsBykeyNfe(docModel.getKeyNfe())) {
+				System.out.println("Existe a nota "+_cNF);
+			}
+			   nfeRepositoty.save(docModel);
+			   System.out.println("Chave: "+docModel.getKeyNfe()+ " Número d Nota: "+ docModel.getnNF());	
+					
 			
 			//System.out.println(keyNfe+ " "+nNF);
 			
@@ -77,6 +78,13 @@ public class XmlToObject {
 		return null;
 		
 	}
+	
+	public boolean existsBykeyNfe(String xmlKey) {
+		
+		
+		return nfeRepositoty.existsBynfeKey(xmlKey);
+	}
+
 	
 	
 }
