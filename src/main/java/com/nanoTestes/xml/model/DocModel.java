@@ -23,13 +23,13 @@ public class DocModel {
 	@Column(nullable = false, unique=true, length =50)
 	String keyNfe;
 	
-	@Column(nullable = false, unique=true, length =10)
+	@Column(nullable = false, unique=false, length =10)
 	String cNF;
 	
 	@Column(nullable = false, unique=true, length =10)
 	String nNF;
 	
-	@Column(nullable = false, unique=true, length =30)
+	@Column(nullable = false, unique=false, length =30)
 	String dhEmi;
 
 	
