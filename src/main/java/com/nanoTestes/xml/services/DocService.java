@@ -27,8 +27,8 @@ public class DocService {
 	
 
 	
-	//private final String directoryPath = "/home/fernando/Documentos/novo/folderFiles/nfe/";
-	private final String directoryPath = "C:\\Users\\fernando.correa\\Documents\\GitHub\\novos\\folder\\";
+	private final String directoryPath = "/home/fernando/Documentos/novo/folderFiles/nfe/";
+	//private final String directoryPath = "C:\\Users\\fernando.correa\\Documents\\GitHub\\novos\\folder\\";
 	
 	// Instancia um objeto xmlToObject with XmlToObject
 	@Autowired
@@ -41,6 +41,7 @@ public class DocService {
 	public void read() {
 		
 		try (DirectoryStream<Path> arquivos = Files.newDirectoryStream(Paths.get(directoryPath), "*.{xml,XML}")) {
+			
 			
 			processa(arquivos);
 			
@@ -63,6 +64,8 @@ public class DocService {
 				byte[] contentFile = Files.readAllBytes(arquivo);
 				
 				// Call the method nfeMapping in the xmlToObject with the array of the byte	
+				
+				
 				xmlToObject.nfeMapping(contentFile);
 				
 				
