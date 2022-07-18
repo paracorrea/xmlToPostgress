@@ -1,15 +1,15 @@
 package com.nanoTestes.xml.repositories;
 
-import java.util.UUID;
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.nanoTestes.xml.model.DocModel;
 
+@Repository
+public interface NfeRepository extends JpaRepository<DocModel, Long> {
 
-public interface NfeRepository extends JpaRepository<DocModel, UUID> {
-		
-	//boolean existsBykeyNfe(String key_nfe);
+	boolean existsByKeyNfe(String keyNfe);
 
-	boolean existsBynfeKey(DocModel xmlKey);
-
-		
 }
