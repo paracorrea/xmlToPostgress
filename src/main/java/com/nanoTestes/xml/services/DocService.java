@@ -27,8 +27,8 @@ public class DocService {
 	
 
 	
-	private final String directoryPath = "/home/fernando/Documentos/novo/folderFiles/nfe/";
-	//private final String directoryPath = "C:\\Users\\fernando.correa\\Documents\\GitHub\\novos\\folder\\";
+	//private final String directoryPath = "/home/fernando/Documentos/novo/folderFiles/nfe/";
+	private final String directoryPath = "C:\\Users\\fernando.correa\\Documents\\GitHub\\novos\\folder\\";
 	
 	// Instancia um objeto xmlToObject with XmlToObject
 	@Autowired
