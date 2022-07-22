@@ -3,7 +3,7 @@ package com.nanoTestes.xml.services.xmlToObject;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import javax.xml.namespace.NamespaceContext;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.nanoTestes.xml.model.DocModel;
@@ -46,6 +47,7 @@ public class XmlToObject {
 	String _cNF;
 	String _dhEmi;
 	String identifyNf;
+	
 
 	
 	//DocModel docModel = new DocModel();
@@ -54,27 +56,31 @@ public class XmlToObject {
 	 * reciving a type byte array and transform in a XML java document 
 	 * follow get your content for future 
 	 */
-	public String nfeMapping(byte[] file) {
-		
+	public String nfeMapping(byte[] nameFile) {		
 		try {
-			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse( new ByteArrayInputStream(file));
+			Document docXml = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse( new ByteArrayInputStream(nameFile));
 			
 			
 			xPath = XPathFactory.newInstance().newXPath();
 			
 			//Element htmlTag = (Element) doc.getDocumentElement().getFirstChild();
-			Element htmlTag = (Element) doc.getDocumentElement().getChildNodes().item(0);
+			Element htmlTag = (Element) docXml.getDocumentElement().getChildNodes().item(0);
 			
+			
+			
+					
 			//System.out.println("Elemtento da Tag: "+htmlTag.toString().substring(1, 4));
-			String resultado = htmlTag.toString().substring(1, 4);
-			System.out.println("Resultado para testar: "+resultado);
 			
-			if (resultado.equals("NFe")) {
+			
+			String substringOfXml = htmlTag.toString().substring(1, 4);
+			
+			
+			if (substringOfXml.equals("NFe")) {
 				
-				_keyNfe = xPath.compile("/nfeProc/NFe/infNFe/@Id").evaluate(doc); // for NF-e
-				_nNF = xPath.compile("/nfeProc/NFe/infNFe/ide/nNF").evaluate(doc);
-				_cNF = xPath.compile("/nfeProc/NFe/infNFe/ide/cNF").evaluate(doc);
-				_dhEmi = xPath.compile("/nfeProc/NFe/infNFe/ide/dhEmi").evaluate(doc);
+				_keyNfe = xPath.compile("/nfeProc/NFe/infNFe/@Id").evaluate(docXml); // for NF-e
+				_nNF = xPath.compile("/nfeProc/NFe/infNFe/ide/nNF").evaluate(docXml);
+				_cNF = xPath.compile("/nfeProc/NFe/infNFe/ide/cNF").evaluate(docXml);
+				_dhEmi = xPath.compile("/nfeProc/NFe/infNFe/ide/dhEmi").evaluate(docXml);
 				
 				System.out.println("Passou aqui if NFe");
 				
@@ -94,12 +100,12 @@ public class XmlToObject {
 					  nfeRepository.save(docModel);
 				  }
 				
-			} else if (resultado.equals("CTe") ) {
+			} else if (substringOfXml.equals("CTe") ) {
 			
-				_keyNfe = xPath.compile("/cteProc/CTe/infCte/@Id").evaluate(doc); // for NF-e
-				_nNF = xPath.compile("/cteProc/CTe/infCte/ide/nCT").evaluate(doc);
-				_cNF = xPath.compile("/cteProc/CTe/infCte/ide/cCT").evaluate(doc);
-				_dhEmi = xPath.compile("/cteProc/CTe/infCte/ide/dhEmi").evaluate(doc);
+				_keyNfe = xPath.compile("/cteProc/CTe/infCte/@Id").evaluate(docXml); // for NF-e
+				_nNF = xPath.compile("/cteProc/CTe/infCte/ide/nCT").evaluate(docXml);
+				_cNF = xPath.compile("/cteProc/CTe/infCte/ide/cCT").evaluate(docXml);
+				_dhEmi = xPath.compile("/cteProc/CTe/infCte/ide/dhEmi").evaluate(docXml);
 				
 				System.out.println("Passou aqui if CTe");
 				
@@ -120,7 +126,7 @@ public class XmlToObject {
 					  nfeRepository.save(docModel);
 				  }
 
-			} else if ( resultado != "NFe" || resultado != "CTe") {
+			} else if ( substringOfXml != "NFe" || substringOfXml != "CTe") {
 				
 				_keyNfe = "";
 				_nNF = "";
@@ -161,6 +167,12 @@ public class XmlToObject {
 		
 	} // fecha o método nfeMapping
 	
-	 
+	public void printXpathResult(Object result) { 
+		   NodeList nodes = (NodeList) result; 
+		   for (int i = 0; i < nodes.getLength(); i++) { 
+		   System.out.println(nodes.item(i).getNodeValue()); 
+		   } 
+		}
+		 
 
 } // fecha a classe

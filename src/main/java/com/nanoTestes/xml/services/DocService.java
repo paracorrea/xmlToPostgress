@@ -17,9 +17,13 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nanoTestes.xml.services.XmlToJson.XmlToJson;
 import com.nanoTestes.xml.services.xmlToObject.XmlToObject;
 
 @Service
@@ -33,6 +37,7 @@ public class DocService {
 	// Instancia um objeto xmlToObject with XmlToObject
 	@Autowired
 	private XmlToObject xmlToObject;
+	private XmlToJson xmlToJson;
 	
 	
 	// this method save all files in variable local arquivos type DirectoryStream Path 
@@ -63,9 +68,8 @@ public class DocService {
 				// convert o arquivo em tipo Byte
 				byte[] contentFile = Files.readAllBytes(arquivo);
 				
+					
 				// Call the method nfeMapping in the xmlToObject with the array of the byte	
-				
-				
 				xmlToObject.nfeMapping(contentFile);
 				
 				
@@ -78,6 +82,33 @@ public class DocService {
 	} // close method processa()
 	
 
+public void processaII(DirectoryStream<Path> arquivos) {
+		
+		for (Path arquivo : arquivos) {
+			
+			try {
+				
+				// convert o arquivo em tipo Byte
+				byte[] contentFile = Files.readAllBytes(arquivo.toAbsolutePath());
+				
+				String xml = new String(contentFile);
+		    	JSONObject obj = XML.toJSONObject(xml);
+		    	System.out.println(obj);
+				
+				
+				//xmlToJson.xmlConvert(arquivo);
+				
+				// Call the method nfeMapping in the xmlToObject with the array of the byte	
+				//xmlToObject.nfeMapping(contentFile);
+				
+				
+			} catch (Exception e) {
+				
+				System.out.println("Erro o ler o arquivo: " +arquivo.getFileName());
+			}
+			
+		}
+	} // close method processa()
 	
 
 }
