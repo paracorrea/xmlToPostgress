@@ -69,7 +69,7 @@ public class XmlToObject {
 			
 			
 					
-			//System.out.println("Elemtento da Tag: "+htmlTag.toString().substring(1, 4));
+			System.out.println("Elemtento da Tag: "+htmlTag.toString().substring(1, 4));
 			
 			
 			String substringOfXml = htmlTag.toString().substring(1, 4);
@@ -153,10 +153,7 @@ public class XmlToObject {
 				
 			}
 				
-							
-			
-			  
-	
+ 
 			
 		} catch (SAXException | IOException | ParserConfigurationException | XPathExpressionException e) {
 			// TODO Auto-generated catch block
