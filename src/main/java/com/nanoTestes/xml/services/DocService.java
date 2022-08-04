@@ -10,8 +10,8 @@ package com.nanoTestes.xml.services;
 	for transform at here a file to the xml document and start reader at own
  *	
 */
-
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -28,7 +28,7 @@ import com.nanoTestes.xml.services.xmlToObject.XmlToObject;
 @Service
 public class DocService {
 	
-
+	static final Logger LOG = LogManager.getLogger(DocService.class.getName());
 	
 	private final String directoryPath = "/home/fernando/Documentos/novo/folderFiles/nfe/";
 	//private final String directoryPath = "C:\\Users\\fernando.correa\\Documents\\GitHub\\novos\\folder\\";
@@ -48,7 +48,8 @@ public class DocService {
 			
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			LOG.info("O ditório é inexistente ou outro problema"+ e.getMessage());
+			
 		}
 	
 	}
@@ -70,7 +71,8 @@ public class DocService {
 				
 			} catch (Exception e) {
 				
-				System.out.println("Erro o ler o arquivo: " +arquivo.getFileName());
+				LOG.info("Erro ao ler o arquivo"+ e.getMessage());
+				
 			}
 			
 		}

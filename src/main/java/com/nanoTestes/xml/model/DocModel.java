@@ -5,17 +5,22 @@ package com.nanoTestes.xml.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="NfeAnalitcs")
 public class DocModel {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -33,7 +38,9 @@ public class DocModel {
 	@Column(nullable = false, unique=false, length =30)
 	String dhEmi;
 
-	
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="id_doc_kake")
+    private DocLake docKake;
 
 	
 	public DocModel(String keyNfe, String nNF) {

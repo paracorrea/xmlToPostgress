@@ -10,7 +10,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -20,12 +21,16 @@ import org.xml.sax.SAXException;
 
 import com.nanoTestes.xml.model.DocModel;
 import com.nanoTestes.xml.repositories.NfeRepository;
+import com.nanoTestes.xml.services.DocService;
 
 
 
 @Service
 public class XmlToObject {
 
+	
+	static final Logger LOG = LogManager.getLogger(DocService.class.getName());
+	
 	@Autowired
 	final NfeRepository nfeRepository;
 	
@@ -82,7 +87,7 @@ public class XmlToObject {
 				_cNF = xPath.compile("/nfeProc/NFe/infNFe/ide/cNF").evaluate(docXml);
 				_dhEmi = xPath.compile("/nfeProc/NFe/infNFe/ide/dhEmi").evaluate(docXml);
 				
-				System.out.println("Passou aqui if NFe");
+				LOG.info("Foram encontradas notas fiscais do tipo NFe");
 				
 				DocModel docModel = new DocModel();
 				docModel.setKeyNfe(_keyNfe);
@@ -92,11 +97,12 @@ public class XmlToObject {
 				  
 				  if (existsByKeyNfe(docModel.getKeyNfe()) || (_keyNfe.isEmpty())) {// if keyNf exist in database not save 
 					  
-					 System.out.println("Nota fiscal: " +docModel.getKeyNfe()+ " já existente no banco de dados ou está em branco");
+					  
+					 LOG.info("Nota fiscal: " +docModel.getKeyNfe()+ " já existente no banco de dados ou está em branco");
 					 
 				  } else {
 					  
-					  System.out.println("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
+					  LOG.info("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
 					  nfeRepository.save(docModel);
 				  }
 				
@@ -107,7 +113,7 @@ public class XmlToObject {
 				_cNF = xPath.compile("/cteProc/CTe/infCte/ide/cCT").evaluate(docXml);
 				_dhEmi = xPath.compile("/cteProc/CTe/infCte/ide/dhEmi").evaluate(docXml);
 				
-				System.out.println("Passou aqui if CTe");
+				LOG.info("Passou aqui if CTe");
 				
 				DocModel docModel = new DocModel();
 				docModel.setKeyNfe(_keyNfe);
@@ -118,11 +124,11 @@ public class XmlToObject {
 				  
 				  if (existsByKeyNfe(docModel.getKeyNfe()) || (_keyNfe.isEmpty())) {// if keyNf exist in database not save 
 					  
-					 System.out.println("Nota fiscal: " +docModel.getKeyNfe()+ " já existente no banco de dados ou está em branco");
+					LOG.info("Nota fiscal: " +docModel.getKeyNfe()+ " já existente no banco de dados ou está em branco");
 					 
 				  } else {
 					  
-					  System.out.println("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
+					  LOG.info("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
 					  nfeRepository.save(docModel);
 				  }
 
@@ -143,7 +149,7 @@ public class XmlToObject {
 				  
 				  if (existsByKeyNfe(docModel.getKeyNfe()) || (_keyNfe.isEmpty())) {// if keyNf exist in database not save 
 					  
-					 System.out.println("Nota fiscal: " +docModel.getKeyNfe()+ " já existente no banco de dados ou está em branco");
+					LOG.info("Nota fiscal: " +docModel.getKeyNfe()+ " já existente no banco de dados ou está em branco");
 					 
 				  } else {
 					  

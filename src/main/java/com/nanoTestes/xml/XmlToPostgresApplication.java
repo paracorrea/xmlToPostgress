@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.nanoTestes.xml.services.DocService;
 
 @SpringBootApplication
-public class XmlToPostgresApplication implements CommandLineRunner{
+public class XmlToPostgresApplication {
 
 	
 	
@@ -24,16 +24,6 @@ public class XmlToPostgresApplication implements CommandLineRunner{
 		
 	}
 
-	/*
-	   The Apllication start with call for the class DocService, instanciada aqui em docService
-	   in the method run here 
-	*/
-	@Override
-	public void run(String... args) throws Exception {
-		
-		docService.read();
-			
-		} 
 		
 	}
 
