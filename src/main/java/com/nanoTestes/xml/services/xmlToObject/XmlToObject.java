@@ -3,7 +3,6 @@ package com.nanoTestes.xml.services.xmlToObject;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -12,6 +11,8 @@ import javax.xml.xpath.XPathFactory;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -19,6 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.nanoTestes.xml.model.DocLake;
 import com.nanoTestes.xml.model.DocModel;
 import com.nanoTestes.xml.repositories.NfeRepository;
 import com.nanoTestes.xml.services.DocService;
@@ -71,8 +73,9 @@ public class XmlToObject {
 			//Element htmlTag = (Element) doc.getDocumentElement().getFirstChild();
 			Element htmlTag = (Element) docXml.getDocumentElement().getChildNodes().item(0);
 			
-			
-			
+	
+
+					
 					
 			System.out.println("Elemtento da Tag: "+htmlTag.toString().substring(1, 4));
 			
@@ -102,8 +105,17 @@ public class XmlToObject {
 					 
 				  } else {
 					  
-					  LOG.info("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
-					  nfeRepository.save(docModel);
+					 LOG.info("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
+					  
+					 String xml = new String(nameFile);
+				     JSONObject obj = XML.toJSONObject(xml);
+				     LOG.info("Este é o objeto capturado: "+obj);
+					  
+				     
+				      DocLake docLake = new DocLake();
+				      docLake.setJsonbContent(obj.toString());
+				      docModel.setDocLake(docLake);
+				      nfeRepository.save(docModel);
 				  }
 				
 			} else if (substringOfXml.equals("CTe") ) {
@@ -129,7 +141,16 @@ public class XmlToObject {
 				  } else {
 					  
 					  LOG.info("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
-					  nfeRepository.save(docModel);
+					  
+					 String xml = new String(nameFile);
+				     JSONObject obj = XML.toJSONObject(xml);
+				     LOG.info("Este é o objeto capturado: "+obj);
+					  
+				     
+				      DocLake docLake = new DocLake();
+				      docLake.setJsonbContent(obj.toString());
+				      docModel.setDocLake(docLake);
+				      nfeRepository.save(docModel);
 				  }
 
 			} else if ( substringOfXml != "NFe" || substringOfXml != "CTe") {
@@ -153,8 +174,17 @@ public class XmlToObject {
 					 
 				  } else {
 					  
-					  System.out.println("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
-					  nfeRepository.save(docModel);
+					 LOG.info("Salvando no banco de dados a NF  " +docModel.getKeyNfe()); 
+					  
+					 String xml = new String(nameFile);
+				     JSONObject obj = XML.toJSONObject(xml);
+				     LOG.info("Este é o objeto capturado: "+obj);
+					  
+				     
+				      DocLake docLake = new DocLake();
+				      docLake.setJsonbContent(obj.toString());
+				      docModel.setDocLake(docLake);
+				      nfeRepository.save(docModel);
 				  }
 				
 			}

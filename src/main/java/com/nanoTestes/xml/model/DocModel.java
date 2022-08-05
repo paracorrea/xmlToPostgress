@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.json.JSONObject;
+
 @Entity
 @Table(name="NfeAnalitcs")
 public class DocModel {
@@ -39,10 +41,18 @@ public class DocModel {
 	String dhEmi;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="id_doc_kake")
-    private DocLake docKake;
+    @JoinColumn(name="id_doc_lake")
+    private DocLake docLake;
 
 	
+	public DocLake getDocLake() {
+		return docLake;
+	}
+
+	public void setDocLake(DocLake docLake) {
+		this.docLake = docLake;
+	}
+
 	public DocModel(String keyNfe, String nNF) {
 		super();
 		this.keyNfe = keyNfe;
@@ -110,6 +120,8 @@ public class DocModel {
 	public String toString() {
 		return "DocModel [id=" + id + ", keyNfe=" + keyNfe + ", cNF=" + cNF + ", nNF=" + nNF + ", dhEmi=" + dhEmi + "]";
 	}
+
+
 	
 	
 	

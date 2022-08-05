@@ -62,8 +62,8 @@ public class DocService {
 			try {
 				
 				// convert o arquivo em tipo Byte
-				byte[] contentFile = Files.readAllBytes(arquivo);
-				
+				byte[] contentFile = Files.readAllBytes(arquivo.toAbsolutePath());
+				//byte[] contentFileForJson = Files.readAllBytes(arquivo.toAbsolutePath());
 					
 				// Call the method nfeMapping in the xmlToObject with the array of the byte	
 				xmlToObject.nfeMapping(contentFile);
